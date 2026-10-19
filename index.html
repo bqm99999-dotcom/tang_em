@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gửi Em ❤️</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;600&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ffe0e9 0%, #ffc4e1 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        color: #4a148c;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        min-height: 420px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .screen {
+        position: absolute;
+        width: 100%;
+        padding: 40px 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        opacity: 0;
+        transform: scale(0.9);
+        visibility: hidden;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .screen.active {
+        opacity: 1;
+        transform: scale(1);
+        visibility: visible;
+        position: relative;
+      }
+
+      #rose1 {
+        font-size: 80px;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      h1 {
+        font-size: 26px;
+        color: #d81b60;
+        margin-bottom: 15px;
+      }
+
+      p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+        color: #713b50;
+        font-size: 15px;
+      }
+
+      #crushNameInput {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 25px;
+        border: 2px solid #ff80ab;
+        border-radius: 10px;
+        font-size: 16px;
+        text-align: center;
+        outline: none;
+      }
+
+      #crushNameInput:focus {
+        border-color: #d81b60;
+      }
+
+      button {
+        background-color: #d81b60;
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #ad1457;
+      }
+
+      .flower-icon {
+        font-size: 45px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .highlight-text {
+        color: #d81b60;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Thẻ Nhạc nền trỏ đúng file của bạn -->
+    <audio id="bgMusic" loop>
+      <source src="audio/có phải anh đã cứu thế giới.mp4" type="audio/mp4" />
+    </audio>
+
+    <div class="container">
+      <!-- Slide 1: Xin phép bật nhạc -->
+      <div id="screenMusicPrompt" class="screen active">
+        <span class="flower-icon">🎵</span>
+        <h1>Một chút âm nhạc nhé?</h1>
+        <p>Cậu ơi, tớ có chuẩn bị một bài hát rất hợp với tâm trạng hôm nay.</p>
+        <p>Cùng nghe nhạc với tớ nha?</p>
+        <button id="playMusicAndNextBtn">🎧 Bật nhạc</button>
+      </div>
+
+      <!-- Slide 2: Nhập tên -->
+      <div id="screen1" class="screen">
+        <span id="rose1">🌹</span>
+        <h1>🌹🌹🌹Gửi đến người đặc biệt nhất hôm nay🌹🌹🌹</h1>
+        <p>Nhân ngày Phụ nữ Việt Nam 20/10,</p>
+        <p>
+          Một người <span class="highlight-text">đặc biệt thứ hai ^^</span> muốn
+          gửi cho cậu một món quà nhỏ.
+        </p>
+        <p>Nhưng trước hết, cho tớ xin tên của cậu nhé:</p>
+        <input type="text" id="crushNameInput" placeholder="Tên của cô ấy..." />
+        <button id="gift1">Mở món quà 🎁</button>
+      </div>
+
+      <!-- Slide 3: Lời chúc (Đã xóa phần chạy chữ bài hát) -->
+      <div id="screen2" class="screen">
+        <span class="flower-icon">💐</span>
+        <h1>
+          Chào
+          <span
+            class="highlight-crush-name"
+            style="color: #d81b60; font-weight: 600"
+          ></span>
+          ơi!
+        </h1>
+        <p>Thật vui vì cậu đã mở tin nhắn này.</p>
+        <p>
+          Chúc <span class="highlight-crush-name highlight-text"></span> có một
+          ngày 20/10 thật hạnh phúc và luôn mỉm cười nhé!
+        </p>
+        <button id="confessBtn">Gửi gắm tâm sự ❤️</button>
+      </div>
+
+      <!-- Slide 4: Lời nhắn dài lắng đọng dành cho người yêu cũ -->
+      <div id="screen3" class="screen">
+        <span class="flower-icon">💌</span>
+        <h1>Gửi <span class="highlight-crush-name highlight-text"></span>,</h1>
+        <p>Gặp được em có lẽ là điều may mắn nhất trong thanh xuân của anh.</p>
+        <p>
+          Dù bây giờ chúng ta không còn như trước, nhưng những kỷ niệm đẹp về em
+          vẫn luôn là một phần quan trọng trong trái tim anh.
+        </p>
+        <p>
+          Chúc em có một ngày 20/10 thật vui vẻ, hạnh phúc. Chúc em luôn mạnh
+          khoẻ, ngày càng xinh gái và thực hiện được những ước mơ của bản thân
+          mình! ✨
+        </p>
+        <p>
+          Đây là web Qminh làm đấy nhé✨. Xịn không^^. Dạo này cuộc sống anh
+          cũng bình thường thôi, cũng có đôi lúc anh hơi nhớ em 1 tý. Nhưng anh
+          chỉ cần thấy em vui mỗi ngày là anh vui rồi. Không biết dự định tương
+          lai em như thế nào. Cũng không biết cuộc sống em dạo này ra sao?.
+          Nhưng chúc em luôn luôn vui vẻ với sự lựa chọn của mình và cũng luôn
+          hạnh phúc với kết quả mình đạt được!!!.💌💌💌💌💌💌💌💌 Ờm, ở đoạn đầu
+          xin phép gọi em là cậu nhé tại mới vào gọi em nó hơi sượng hihi.
+          Haizz, anh chỉ là quan tâm em 1 tý thôi ko có ý gì đâu. Nếu có thể thì
+          đôi lúc trò chuyện với anh tý nhé - Ừm ở Hà Nội hơi cô đơn đấy....Một
+          lần nữa chúc em có 1 ngày 20/10 thật ý nghĩa nhé.||Tặng em hoa hồng
+          đây hihi 🌹🌹🌹🌹🌹🌹🌹🌹🌹||
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const nameInput = document.getElementById("crushNameInput");
+      const playMusicAndNextBtn = document.getElementById(
+        "playMusicAndNextBtn",
+      );
+      const gift1Btn = document.getElementById("gift1");
+      const confessBtn = document.getElementById("confessBtn");
+
+      const screens = document.querySelectorAll(".screen");
+      const highlightNames = document.querySelectorAll(".highlight-crush-name");
+      const bgMusic = document.getElementById("bgMusic");
+
+      // 1. Bật nhạc và chuyển sang slide nhập tên
+      playMusicAndNextBtn.addEventListener("click", () => {
+        bgMusic.play().catch((error) => {
+          console.log("Trình duyệt chặn autoplay:", error);
+        });
+
+        showScreen(1);
+      });
+
+      // 2. Nhập tên xong chuyển sang slide lời chúc
+      gift1Btn.addEventListener("click", () => {
+        const crushName = nameInput.value.trim();
+        if (crushName === "") {
+          alert("Cậu ơi, cho tớ xin tên cậu nhé! 💗");
+          nameInput.focus();
+          return;
+        }
+
+        // Cập nhật tên vào các slide tiếp theo
+        highlightNames.forEach((span) => (span.textContent = crushName));
+
+        showScreen(2);
+      });
+
+      // 3. Chuyển sang Slide tâm sự cuối cùng
+      confessBtn.addEventListener("click", () => {
+        showScreen(3);
+      });
+
+      // Hàm chuyển slide
+      function showScreen(index) {
+        screens.forEach((screen, i) => {
+          if (i === index) {
+            screen.classList.add("active");
+          } else {
+            screen.classList.remove("active");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
